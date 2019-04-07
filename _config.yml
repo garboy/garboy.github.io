@@ -24,7 +24,7 @@ github_username:  garboy
 
 # Build settings
 markdown: kramdown
-theme: cayman
+theme: minima
 #remote_theme: daattali/beautiful-jekyll
 plugins:
   - jekyll-feed
