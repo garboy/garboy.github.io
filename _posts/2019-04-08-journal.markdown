@@ -1,0 +1,31 @@
+---
+
+layout: post
+
+title: "流水账"
+
+date: 2019-04-08 07:07:12 +0800
+
+categories: journal
+
+---
+
+- [ ] sprint planning
+
+- [ ] 小程序方案讨论
+
+- [x] TFS deploy agent, spring boot application
+
+- [x] 预约考级场地熟悉
+
+一好 早上不到6点起床，起来喝口水就直接开练，没想那么多，做就完了，就能做下来。
+
+今天主要是练腿
+
+- 深蹲16 * 3
+
+- 单腿哑铃硬拉12 * 4
+
+- 哑铃箭步蹲20 * 1
+
+- 坐姿举腿30kg 12 * 3
