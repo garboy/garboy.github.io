@@ -4,7 +4,7 @@ title:  "Build a mock api server in seconds"
 date:   2019-04-11 12:58:18 +0800
 categories: technical
 ---
-# Build a mock api server in seconds
+## Build a mock api server in seconds
 
 很多时候，定义好了api接口，但是前端也得等上一阵子，少则几小时，多则1-2天，才会有接口能够访问。尤其是目前公司的一些新项目，后端的重点还没在接口定义上，尽早集成，持续集成这个习惯正在不断推动着去培养。
 

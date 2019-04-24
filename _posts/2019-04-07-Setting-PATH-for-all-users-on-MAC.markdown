@@ -4,7 +4,7 @@ title:  "Setting PATH for all users on MAC"
 date:   2019-04-07 10:58:18 +0800
 categories: jekyll update
 ---
-# Setting PATH for all users on MAC
+## Setting PATH for all users on MAC
 
 When I setting up my old mac laptop for Ruby and Jekyll, I hit an issue:
 
@@ -23,8 +23,3 @@ I tried
 add `~/.gem/ruby/2.6.0/bin/` to first line in that file, maybe you need to change '~' with your account's home folder.
 
 That's it! Now jekyll -v will find right path to run!
-
-
-
-
-
