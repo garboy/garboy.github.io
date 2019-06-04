@@ -18,4 +18,4 @@ get foo
 quit
 ```
 
-参考[原文](https://redislabs.com/blog/get-redis-cli-without-installing-redis-server/)
+参考[原文](https://redislabs.com/blog/get-redis-cli-without-installing-redis-server/)，感谢Lu Jiajing的[代码](https://github.com/lujiajing1126/redis-cli)。
