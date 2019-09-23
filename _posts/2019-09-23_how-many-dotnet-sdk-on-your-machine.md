@@ -14,5 +14,4 @@ categories: technical
 冷静下来想了想，.NET Core的程序不是开始可以多版本side by side并行运行了么？所以每次下载/升级一次.NET Core SDK，或者有时候Visual Studio 更新一下，也都会下载一个版本的SDK。同时，旧的版本并不会卸载掉。时间久了，机器上就有了一部.NET Core SDK编年史。
 每一个版本还都不小，赶紧都卸载了去，就保留一个。一下又能给我刷出来近10GB空间，太好了。
 
-P.S. 发现一外国友人，也有这个困扰:https://gunnarpeipman.com/dotnet-core-how-many-sdks/
-
+P.S. 发现一外国友人，也有这个[困扰](https://gunnarpeipman.com/dotnet-core-how-many-sdks/)
