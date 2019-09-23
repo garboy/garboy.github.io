@@ -5,8 +5,6 @@ date:   2019-09-23 12:58:18 +0800
 categories: technical
 ---
 
-## 你的机器上到底有多少个.NET Core SDK
-
 笔记本的剩余空间天天徘徊在1-2GB内，天天提醒我。我担心某一个更新都没法正常下载，安装。于是清理机器磁盘空间，打开添加/删除程序后，发现机器里面装了好几个版本的.NET Core SDK，OMG，我怎么需要这么多？！
 
 ![add/remove program files]()
