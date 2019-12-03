@@ -2,7 +2,7 @@
 layout: post
 title:  "AWS Certified Solution Architect - RPO 与 RTO"
 date:   2019-11-06 09:38:18 +0800
-categories: technical
+categories: aws cert
 ---
 # AWS Certified Solution Architect - RPO 与 RTO
 ## RPO: Recovery Point Objective
