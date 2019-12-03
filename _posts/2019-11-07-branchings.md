@@ -16,6 +16,7 @@
 ### GitLab Flow
 
 3 types of gitlab flow  
+
 #### Production branch with GitLab flow
 
 ![GitLab Flow - Production Branch](https://about.gitlab.com/images/git_flow/production_branch.png)  
@@ -32,6 +33,7 @@ Above all, there is one pic more clearly
 ![gitlab flow in one pic](https://pic4.zhimg.com/80/v2-8c0678c68ffe9940ce81b9b6d2fdc32b_hd.jpg)
 
 The GitLab Flow is based on [11 rules](https://about.gitlab.com/blog/2016/07/27/the-11-rules-of-gitlab-flow/):
+
 1. Use feature branches, no direct commits on master
 2. Test all commits, not only ones on master
 3. Run all the tests on all commits (if your tests run longer than 5 minutes have them run in parallel).
@@ -72,17 +74,27 @@ It can become complex as Git Flow when it needs to maintain multiple version in 
 4. Merge only PR is reviewed, and go-live it immediately.
 
 *Pros.*
-
-1. Simple and effective.
-2. Mergeing often, deploy often, Minimize unreleased code, inline with lean and continuous delivery best practices.
+Simple and effective.
+Mergeing often, deploy often, Minimize unreleased code, inline with lean and continuous delivery best practices.
 
 *Cons*
+not suitable for those fixed window and release train model. Such as iOS apps, you have to wait Apple review and approve your artifacts, then you go live. That will leave a gap between code in master and code in market.
 
-1. not suitable for those fixed window and release train model. Such as iOS apps, you have to wait Apple review and approve your artifacts, then you go live. That will leave a gap between code in master and code in market.
+---
+
+### Concordya flow
+
+1. 2 long-lived branches, master and dev.
+2. developers can commit to dev directly, without code review.
+3. when **Code Freeze** day comes, gate keeper will merge dev into master, and CI will deploy master to staging environment.
+4. only bug fixes will be allowed, and direct commit to master in this period of time.
+5. each deployed will be tagged as 'x.x.x-rc?', and tagged as 'x.x.x' after go live.
+6. merge back to dev, move on to another sprint.
 
 ---
 
 ## Reference
+
 . [Git Flow](https://nvie.com/posts/a-successful-git-branching-model/)  
 . [GitHub Flow](https://guides.github.com/introduction/flow/)  
 . [GitLab Flow](https://about.gitlab.com/blog/2014/09/29/gitlab-flow/)  
