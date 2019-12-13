@@ -2,7 +2,7 @@
 layout: post
 title:  "Git Flow 分支规范"
 date:   2019-12-06 09:38:18 +0800
-categories: tech
+categories: git flows
 ---
 ![Git Flow](https://user-images.githubusercontent.com/1076902/70313637-f67c1a00-1850-11ea-9697-184d102e17aa.png)
 
