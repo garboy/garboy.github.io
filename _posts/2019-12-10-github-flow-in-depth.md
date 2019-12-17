@@ -29,7 +29,9 @@ Only certain roles in team can merge the PR, let's say team leaders, development
 
 ### Rule #4
 
-Require status checks passed before merging.
+Require status checks passed before merging. Each commit will trigger a CI and feedback with a status check.  
+
+### Continuous Integration, Continuous Delivery and Continious Deploy
 
 ## Refer
 
