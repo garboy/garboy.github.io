@@ -125,7 +125,7 @@ create mode 100644 b.py
 Successfully rebased and updated refs/heads/master.
 ```
 
-git 历史也会变成下面这样。  
+git 历史也会变成下面这样，只有一条提交记录。  
 
 ``` shell
 
@@ -138,21 +138,24 @@ $ git log --oneline --graph --decorate
 
 ### Merge & Squash
 
+Git 的分支合并的时候，有一个 --squash 参数，可以直接用这个参数，使得A分支内容合并到B分支的时候，压缩成一次提交。
+
 ``` shell
 
-git commit -am "Message describing all squashed commits"
-git branch -m mybranchname mybranchname_unsquashed
-git branch -m mybranchname
+# 从master签出一个分支
+git checkout -b 'feature_with_squash' master
 
-# Optional cleanup:
-git branch -D mybranchname_unsquashed
+# 把feature分支的改动一次性合并进来
+git merge 'feature_without_squash' --squash
 
-# If squashing already-pushed commits...
+# 上个命令只是把改动带过来，并没有merge。通过下面命令，就用1次commit，完成提交
+git commit -am 'nice and clean feature'
+
+# 推送
 git push -f
 ```
 
-setup and push to origin  
-`git push --set-upstream origin add-description-on-readme`  
+上面也有一个问题，就是合并后，就看不到原始的改动是谁提交的了，看到的都是做这次操作的人，而不是原始的提交人。
 
 ### Squash in Merge Rquest
 
