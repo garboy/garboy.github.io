@@ -134,11 +134,13 @@ $ git log --oneline --graph --decorate
 * 952244a Added a.py
 ```
 
-这样的方式有个不太方便的地方，这些合并，会变更分支，而不是在原始分支里面合并。
+这样的方式有个不太方便的地方，这些合并，会变更分支，而不是在原始分支里面合并。下面介绍一种不用rebase的方法。  
 
-### Merge & Squash
+### 2. Merge & Squash
 
-Git 的分支合并的时候，有一个 --squash 参数，可以直接用这个参数，使得A分支内容合并到B分支的时候，压缩成一次提交。
+第二种方法是通过 `git merge --squash` 这个操作来完成，实现把两个分支的全部差异，通过一次commit来提交。  
+假设我们已经在 feature_without_squash 分支里面做完了功能，已经可以合并至master，只是提交历史不好看，比较凌乱。  
+我们需要先从master新建一个分支，然后把要合并的分支，通过`git merge --squash`方式合并至新分支，（还可以把新分支重命名为旧分支，保持原始PR仍然可见；如果不做这步，可能需要新开一个PR，用以review，走代码合并流程），最后在推送远程，开启合并请求。  
 
 ``` shell
 
@@ -147,6 +149,9 @@ git checkout -b 'feature_with_squash' master
 
 # 把feature分支的改动一次性合并进来
 git merge 'feature_without_squash' --squash
+
+# 把分支重命名为原来PR里面的分支名字，可选步骤，这样可以保持已经打开的PR不会有太大问题。
+git branch -m 'feature_with_squash' 'feature_without_squash'
 
 # 上个命令只是把改动带过来，并没有merge。通过下面命令，就用1次commit，完成提交
 git commit -am 'nice and clean feature'
@@ -157,7 +162,7 @@ git push -f
 
 上面也有一个问题，就是合并后，就看不到原始的改动是谁提交的了，看到的都是做这次操作的人，而不是原始的提交人。
 
-### Squash in Merge Rquest
+### 3. quash in Merge Rquest
 
 Gitlab 8之后，再合并 Merge Request 请求的时候，可以选择"squash ..."，一下就搞定了！
 ![Sqush in Gitlab MR](https://user-images.githubusercontent.com/1076902/70955008-4d33f000-20aa-11ea-82c6-7e3d430192fa.png)
