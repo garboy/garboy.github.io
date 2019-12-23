@@ -8,7 +8,9 @@ categories: git flows
 不管是 GitFlow 还是 GitHub Flow，都不可避免的会碰到编码的最佳实践要求尽可能小、尽可能频繁的提交代码，可代码提交频繁了，到时候万一需要整体撤销这些改动，如果没有做好 [Feature Flag](https://www.martinfowler.com/articles/feature-toggles.html)，不管是 revert 还是 cherry-pick，都不容易，因为提交历史都太零碎。  
 其实这时候有3种解决办法，基本思路都是 squash。不同的地方在于，一是用 git rebase 的 squash，二是用 git merge --squash，两个命令不同的地方见下面。  
 
-### Rebase & Squash
+---
+
+### 1. Rebase & Squash
 
 通过 git rebase 来 squash 其实就是先通过 git 历史，确定需要合并哪几个 commit，然后通过 `git rebase -i [SHA]`或者`git rebase -i HEAD~[NUMBER OF COMMITS]` 来合并多次提交历史。  
 如这样的一个例子，b.py文件有三次修改记录，我们想把这三行提交记录合并为一次提交。
@@ -136,6 +138,8 @@ $ git log --oneline --graph --decorate
 
 这样的方式有个不太方便的地方，这些合并，会变更分支，而不是在原始分支里面合并。下面介绍一种不用rebase的方法。  
 
+---
+
 ### 2. Merge & Squash
 
 第二种方法是通过 `git merge --squash` 这个操作来完成，实现把两个分支的全部差异，通过一次commit来提交。  
@@ -162,7 +166,7 @@ git push -f
 
 上面也有一个问题，就是合并后，就看不到原始的改动是谁提交的了，看到的都是做这次操作的人，而不是原始的提交人。
 
-### 3. quash in Merge Rquest
+### 3. Squash in Merge Rquest
 
 Gitlab 8之后，再合并 Merge Request 请求的时候，可以选择"squash ..."，一下就搞定了！
 ![Sqush in Gitlab MR](https://user-images.githubusercontent.com/1076902/70955008-4d33f000-20aa-11ea-82c6-7e3d430192fa.png)
