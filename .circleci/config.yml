@@ -30,10 +30,10 @@ jobs:
           name: install dependencies
           command: |          
             gem update --system
-            gem install bundler
             bundle config set path 'vendor/bundle'
             bundle update html-pipeline github-pages
             bundle install --jobs=4 --retry=3
+            gem install bundler
 
       - save_cache:
           paths:
