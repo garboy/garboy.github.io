@@ -73,10 +73,25 @@ Take in mind that it doesn't mean stick to one approach in whole project life ti
 
 You can combine these two approach together. Since it's easier to have state-based approach for store procedures, we create a folder 'StoreProcedures' in database project, and create .sql files for each procedures. In the migration script, we change the command to run a sql script file for those procedures.
 
-By using this we, all the changes in procedures will be showed in source control tools, and the merge conflicts will be easier to see and handle by that tools.
+By using this way, all the changes in procedures will be showed in source control tools, and the merge conflicts will be easier to see and handle by that tools.
 
 It's strongly recormended not put logic in the database, if you follow DDD closely, all the logic can save in repository layer, and it will be handle by source code controll system.
+
+## Transition Period
+
+If the whole database is used by one application, that means the application is the single source of change for the db, it's easier to change the database while change the domain entities and store procedures.
+
+But life is not that simple, it's really common several applications share one database, we call it integration database. In this case, we have to seperate the migration work into two steps, first one is adding new column, table to implement our new domain concepts, and add several triggers views in order to work with those applications cannot upgrade yet.
+
+Then after all the data and applications are upgraded, we do the second step, clear the old table, data, and the triggers, views used during the migration period. This period may lasts from days to weeks, keep in mind don't change same object when it is during the previous transition period.
+
+## Migration Tool
+
+Database continuous delivery is not hard in concept, but it's really hard and tidous to figure out the migration scripts, including DDL for table, procedure, trigger, and DML for master data and data migration. Next part we need to build a tool help us do the migration work. That is save db version in settings table, load migration files and determine which files should be executed, and finally mark the new version in db.
+
+### TODO: DEMO project
 
 ## Refer
 
 1. [The elphant in the room: Continuous Delivery for Database](http://vimeo.com/131637362). Alex Yates, NDC talk.
+2. [Database Refactoring](https://www.databaserefactoring.com/)
