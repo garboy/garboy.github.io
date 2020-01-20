@@ -97,7 +97,7 @@ Bad positive indicator means if coverage numbers are high, it doesn't mean anyth
 
 In one sentense, don't push too much on high coverage indicator, spend more time on testing business logic.
 
-**High coverage numbers != High quality test suite**
+> High coverage numbers != High quality test suite
 
 #### Pragmatic Approach to Unit Testing
 
@@ -106,10 +106,108 @@ In one sentense, don't push too much on high coverage indicator, spend more time
 
 Write code is an expensive way to solve problems, so does the unit tests. The more test you write, the more maintaince works you need to carry on.
 
-**What makes a test valuable?**
+#### What makes a test valuable?
 
 1. Has a high chance of catching a regression error.
 1. Has a low chance of producing a false positive.
 1. Provides fast feedback.
 1. Has low maintenance cost.
 
+---
+
+### 3 Styles of Unit Testing
+
+#### Output Verification
+
+Focus on the return value, and the class has no internal or global variables that impact on the business logic.
+
+```C#
+public class PriceEngine
+{
+    public decimal CalculateDiscount(params Product[] product)
+    {
+        decimal discount = product.Length * 0.01m;
+        return Math.min(discount, 0.2m);
+    }
+}
+
+...
+
+[Fact]
+public void Test()
+{
+    Product product1 = new Product("Hand wash");
+    Product product2 = new Product("Shampoo");
+    var engine = new PriceEngine();
+
+    decimal discount = engine.CalculateDiscount(product1, product2);
+
+    Assert.Equal(0.02m, discount);
+}
+```
+The logic is all in the method itself, tests are just check the input and output params.
+
+#### State Verfication
+
+```C#
+public class Order
+{
+    private readonly List<Product> _products;
+    public IReadOnlyList<Product> Products => _products.ToList();
+
+    public void AddProduct(Product product)
+    {
+        _products.Add(product);
+    }
+}
+
+...
+
+[Fact]
+public void Test()
+{
+    Product product = new Product("Hand wash");
+    Order order = new Order();
+
+    order.AddProduct(product);
+
+    Assert.Equal(1, order.Products.Count);
+    Assert.Equal(product, order.Product[0]);
+}
+```
+
+#### Collaboration Verfication
+
+Focus on SUT and its neighbors, check all the neighbors are invoked in correct order and with correct parameters. This needs mocks.
+
+```C#
+public class OrderService
+{
+    public void Submit(Order order, IDatabase database)
+    {
+        database.Save(order);
+    }
+}
+
+...
+
+[Fact]
+public void Test()
+{
+    var order = new Order();
+    var service = new OrderService();
+    var mock = new Mock<IDatabase>();
+
+    service.Submit(order, mock.Object);
+
+    mock.Verify(x => x.Save(order));
+}
+```
+
+#### Hexagonal Architecture
+
+. Domain model is the most important part of application
+. It doesn't communicate with the outside world
+. Shouldn't know how it is persisted to the DB
+
+All the communication, persistation works should be done in application service, not in domain model itself.
