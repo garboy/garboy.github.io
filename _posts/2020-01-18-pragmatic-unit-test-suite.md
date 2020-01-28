@@ -211,3 +211,5 @@ public void Test()
 . Shouldn't know how it is persisted to the DB
 
 All the communication, persistation works should be done in application service, not in domain model itself.
+
+Unit test against domain logic should use output verification.  
