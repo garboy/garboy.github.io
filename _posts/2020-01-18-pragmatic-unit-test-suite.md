@@ -211,3 +211,170 @@ public void Test()
 . Shouldn't know how it is persisted to the DB
 
 All the communication, persistation works should be done in application service, not in domain model itself.
+
+So the integration tests should test those code involves different part of application services, external dependencies, and databases.
+
+Keep in mind that those external dependencies can be seperated into 2 types:
+- You can control, test against them directly. Such as database, file systems and etc.
+- You cannot control, use mocks, test doubles. Such as third party services, email services, sms services. 
+
+#### Test Data Cleanup
+There several ways to cleanup data left in tests.
+1. Restore database backup before each test.
+1. Wipe out data after test execution.
+1. Wrap each test with a transaction, and not commit during each test.
+
+Each of above has its own side-effects, too slow, some data can remain in db, if the test doesn't finish properly, and can interfere with the SUT's flow.
+
+The solution is quite simple, wipe out all data before test execution, because:
+
+- Each test creates its own set of test data
+- Only master data should be deleted(reference data could be kept)
+- Setup proper database delivery
+
+### Avoiding Unit Test Anti-patterns
+
+#### Exposing Implementation Details
+
+Test the Observable behavior only.
+
+This means only test those public API, no private methods. If you need to make some method or property from private to public, that is an anti-pattern, it means you are exposing implemention details to outside world.
+
+#### Leaking Domain Knowledge to Tests
+
+Some tests are just a copy-paste of domain logic, such as,
+
+```c#
+public static class Calculator
+{
+    public static int Add(int value1, int value2)
+    {
+        return value1 + value2;
+    }
+}
+
+public class CalculatorTests
+{
+    [Theory]
+    [InlineData(1,3)]
+    [InlineData(11,33)]
+    [InlineData(100,500)]
+    public void Add_two_numbers(int value1, int value2)
+    {
+        int expected = value1 + value2;
+        int actual = Calculator.Add(value1, value2);
+        Assert.Equal(expected, actual);
+    }
+}
+```
+
+Above tests are just a copy-paste of core logic, so it means nothing, even it uses parameters to test those senarios.
+
+If you change the logic, you may just copy the changed code to the tests, so these tests don't contribute to confidence, it should be avoid.
+
+How to deal with these algorithm tests?  
+We could use two types of tests:
+
+- Properties of the algorithm, [Introduction to Property-based Testing](), by Mark Seemann
+- The end result. Pre-calculate the results and hard-coded them into tests.
+
+We modify the tests using seconde way.
+
+```c#
+public static CalculatorTests
+{
+    [Theory]
+    [InlineData(1,3,4)]
+    [InlineData(11,33,44)]
+    [InlineData(100,500,600)]
+    public void Add_two_numbers(int value1, int value2, int expected)
+    {
+        int actual = Calculator.Add(value1, value2);
+        Assert.Equal(expected, actual);
+    }
+}
+```
+
+#### Code Pollution
+
+This means you write code in the class, but it just for the tests. You need to move the code snippet from code to test code. That is don't introduce code to your main code base solely for testing purposes.
+
+#### Non-determinism in Tests
+
+Such as following tests for asynchronous jobs.
+```c#
+[Fact]
+public void Test()
+{
+    var sut = new CustomerService();
+    sut.FirePeriodJob();
+
+    Thread.Sleep(10000);
+
+    /* Verify the effects of the job */
+}
+```
+
+This is a bad practise, because you are not sure how long the job will take. It makes your tests pass or fail without confidence. So these kind of tests are not given feedbacks, we should seperate the async-job from complex code, and only test the complex code, leave asynchronous code untouched. Like,
+```c#
+[Fact]
+public void Test()
+{
+    var sut = new CustomerService();
+    Task task = sut.FirePeriodJobAsync();
+
+    task.Wait();
+
+    /* Verify the effects of the job */
+}
+```
+If it's impossible to make function async, you could check the result periodly. Here's a good video-[Unit testing patterns for concurrent code](https://vimeo.com/171317257).
+
+Another situation is the DateTime.Now(). You can not make sure the value of DateTime.Now() doens't change if you create something in DB, then checks its creation date in tests, such as,
+
+```c#
+public class CustomerTests
+{
+    public void create_tests()
+    {
+        var sut  = new CustomerService();
+        var customer = sut.Create("Name");
+        Assert.Equal(DateTime.Now, customer.DateCreated);
+    }
+}
+```
+This test may pass or not, depended on the test executed fast or not.
+
+ We coud introduce a new class 'SystemDateTime' to replace the DateTime.Now.
+
+ ```c#
+ public static class SystemDateTime
+ {
+     private static Func<DateTime> _func;
+     public static DateTime Now
+     {
+         get { return _func(); }
+     }
+
+     public static void Init(Func<DateTime> func)
+     {
+         _func = func;
+     }
+ }
+ ```
+
+The benefit of this code is you can pass in a function that return a datetime. That means you can pass in 'DateTime.Now' in production, and pass a fixed date in tests.
+
+`// initialization code for production`  
+`SystemDateTime.Init(() => DateTime.Now);`
+
+`// initialization code for unit tests`  
+`SystemDateTime.Init(() => new DateTime(2019,12,31));`
+
+### Resources List
+1. [Source code](https://github.com/vkhorikov/autobuyer)
+1. [Eradicating non-determinism in tests](http://martinfowler.com/articles/nonDeterminism.html)
+1. [Interfaces are not abstractions](http://blog.ploeh.dk/2010/12/02/Interfacesarenotabstractions/)
+1. [Cyclic dependencies are evil](https://fsharpforfunandprofit.com/posts/cyclic-dependencies/)
+1. [Humble object](http://xunitpatterns.com/Humble%20Object.html)
+1. [Unit testing patterns for concurrent code](https://vimeo.com/171317257)
