@@ -210,9 +210,8 @@ public void Test()
 . It doesn't communicate with the outside world
 . Shouldn't know how it is persisted to the DB
 
-All the communication, persistation works should be done in application service, not in domain model itself.
-
-So the integration tests should test those code involves different part of application services, external dependencies, and databases.
+All the communication, persistation works should be done in application service, not in domain model itself.  
+Unit test against domain logic should use output verification, and the integration tests should test those code involves different part of application services, external dependencies, and databases.
 
 Keep in mind that those external dependencies can be seperated into 2 types:
 - You can control, test against them directly. Such as database, file systems and etc.
