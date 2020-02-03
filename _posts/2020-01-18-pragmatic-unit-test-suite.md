@@ -5,11 +5,7 @@ date:   2020-01-18 10:11:18 +0800
 categories: testing
 ---
 
-## Pragmatic Unit Test Suite
-
-### Unit Test
-
-#### Goals of unit test
+## Goals of unit test
 
 > unit test != good design
 
@@ -17,14 +13,14 @@ categories: testing
 1. move fast
 1. maintain low amount of technical debt.
 
-#### Coverage Metrics
+## Coverage Metrics
 
 1. good indicator of a trend
 1. cannot measure effectiveness
 
 such as,  
 
-##### Code Coverage
+### Code Coverage
 
 > code coverage, = (lines of code covered) / (overall number of lines)
 
@@ -60,7 +56,7 @@ now the code coverage will be 100%, but nothing changed, no more senarios covere
 
 There's another more helpful metric, branch coverage.
 
-##### Branch Coverage
+### Branch Coverage
 
 > branch coverage = (branches traversed) / (number of branches)
 
@@ -99,15 +95,16 @@ In one sentense, don't push too much on high coverage indicator, spend more time
 
 > High coverage numbers != High quality test suite
 
-#### Pragmatic Approach to Unit Testing
+---
+
+## Pragmatic Approach to Unit Testing
 
 1. carefully choose code to test
 1. Use the most valuable tests only
 
 Write code is an expensive way to solve problems, so does the unit tests. The more test you write, the more maintaince works you need to carry on.
 
-#### What makes a test valuable?
-
+**What makes a test valuable?**
 1. Has a high chance of catching a regression error.
 1. Has a low chance of producing a false positive.
 1. Provides fast feedback.
@@ -115,9 +112,9 @@ Write code is an expensive way to solve problems, so does the unit tests. The mo
 
 ---
 
-### 3 Styles of Unit Testing
+## 3 Styles of Unit Testing
 
-#### Output Verification
+### Output Verification
 
 Focus on the return value, and the class has no internal or global variables that impact on the business logic.
 
@@ -147,7 +144,7 @@ public void Test()
 ```
 The logic is all in the method itself, tests are just check the input and output params.
 
-#### State Verfication
+### State Verfication
 
 ```C#
 public class Order
@@ -176,7 +173,7 @@ public void Test()
 }
 ```
 
-#### Collaboration Verfication
+### Collaboration Verfication
 
 Focus on SUT and its neighbors, check all the neighbors are invoked in correct order and with correct parameters. This needs mocks.
 
@@ -204,7 +201,9 @@ public void Test()
 }
 ```
 
-#### Hexagonal Architecture
+---
+
+## Hexagonal Architecture
 
 . Domain model is the most important part of application
 . It doesn't communicate with the outside world
@@ -217,7 +216,7 @@ Keep in mind that those external dependencies can be seperated into 2 types:
 - You can control, test against them directly. Such as database, file systems and etc.
 - You cannot control, use mocks, test doubles. Such as third party services, email services, sms services. 
 
-#### Test Data Cleanup
+## Test Data Cleanup
 There several ways to cleanup data left in tests.
 1. Restore database backup before each test.
 1. Wipe out data after test execution.
@@ -231,15 +230,15 @@ The solution is quite simple, wipe out all data before test execution, because:
 - Only master data should be deleted(reference data could be kept)
 - Setup proper database delivery
 
-### Avoiding Unit Test Anti-patterns
+## Avoiding Unit Test Anti-patterns
 
-#### Exposing Implementation Details
+### Exposing Implementation Details
 
 Test the Observable behavior only.
 
 This means only test those public API, no private methods. If you need to make some method or property from private to public, that is an anti-pattern, it means you are exposing implemention details to outside world.
 
-#### Leaking Domain Knowledge to Tests
+### Leaking Domain Knowledge to Tests
 
 Some tests are just a copy-paste of domain logic, such as,
 
@@ -277,7 +276,7 @@ We could use two types of tests:
 - Properties of the algorithm, [Introduction to Property-based Testing](), by Mark Seemann
 - The end result. Pre-calculate the results and hard-coded them into tests.
 
-We modify the tests using seconde way.
+We modify the tests using second way.
 
 ```c#
 public static CalculatorTests
@@ -294,11 +293,11 @@ public static CalculatorTests
 }
 ```
 
-#### Code Pollution
+### Code Pollution
 
 This means you write code in the class, but it just for the tests. You need to move the code snippet from code to test code. That is don't introduce code to your main code base solely for testing purposes.
 
-#### Non-determinism in Tests
+### Non-determinism in Tests
 
 Such as following tests for asynchronous jobs.
 ```c#
@@ -370,7 +369,7 @@ The benefit of this code is you can pass in a function that return a datetime. T
 `// initialization code for unit tests`  
 `SystemDateTime.Init(() => new DateTime(2019,12,31));`
 
-### Resources List
+## Resources List
 1. [Source code](https://github.com/vkhorikov/autobuyer)
 1. [Eradicating non-determinism in tests](http://martinfowler.com/articles/nonDeterminism.html)
 1. [Interfaces are not abstractions](http://blog.ploeh.dk/2010/12/02/Interfacesarenotabstractions/)
