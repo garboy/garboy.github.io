@@ -70,10 +70,63 @@ public static int? Divid(int x, int y)
 ### 为什么要函数式编程
 
 了解了什么是函数式编程后，我们再来看看为什么要这么做。要了解为什么这么做，我们先得知道当前困扰我们最多的问题是什么。目前在软件行业，复杂性基本成为编程领域的第一问题，它影响了软件行业的其他方方面面，比如开发速度，缺陷数量，以及快速调整，以适应市场的能力。
-一个人的大脑能够同时处理的信息很有限，我们的代码集常常远远大于这个限度，这也是有时候为什么我们修复缺陷，新增功能，却很难避免带来副作用。通过函数式编程，能够帮助我们减少点复杂度，进而帮助我们更快，更高质量的编写更多软件。
-因为上面小节举的例子，函数式方法的签名能够让我们很容易理解方法，如果每一个方法都是如此，也没有恼人的全局变量以及出其不意的异常，每一个方法能够彼此独立的测试，那么我们可以把每一个方法看做构建软件的积木，通过组合不同的积木，实现软件不同模块和功能。
+
+一个人的大脑能够同时处理的信息很有限，我们的代码规模常常远远大于这个限度，这也是有时候为什么我们修复缺陷，新增功能，却很难避免带来副作用。通过函数式编程，能够帮助我们减少点复杂度，进而帮助我们更快，更高质量的编写更多软件。
+
+上面小节举的例子可以看出，函数式方法的签名能够让我们很容易理解方法。如果每一个方法都是如此，也没有恼人的全局变量以及出其不意的异常，每一个方法能够彼此独立的测试，那么我们就可以把每一个方法看做构建软件的积木。通过组合不同的积木，实现软件不同模块和功能。
 
 ## Immutable Architecture 不变的架构
+
+### 术语
+**不可变（Immutablity）**, 常常用于修饰类，表明该类的实例在生命周期内不可以改变。  
+**状态（State）**，表明数据的改变。  
+**副作用（Side Effect）** 是改变状态的一些动作。通常指一些操作改变了可变类的状态，那就指它带来了副作用，比如写入文件系统，或者写入数据库。
+
+可以想象到，一个不可变类，实际上是没有状态的。只有可变类，才会有状态。下面看一个例子，帮助我们理解这些概念。
+```c#
+public class UserProfile {
+    private User _user;
+    private string _address;
+    public void UpdateUser(int userId, string name) {
+        _user = new User(userId, name);
+    }
+}
+
+public class User {
+    public int Id { get; }
+    public string Name { get; }
+
+    public User(int id, string name) {
+        Id = id;
+        Name = name;
+    }
+}
+```
+User类是一个不可变类，因为它的Id, Name都是只读属性，只能通过构造函数来初始化。但是UserProfile是有副作用的，它可以通过UpdateUser方法，改变了User属性的状态，因此留下了副作用。
+
+### 为什么关注不可变性
+
+因为它使得你的代码不那么“诚实”。前面说的，方法签名必须明确指出它的输入和输出，但是伴随着副作用，我们的签名并不能够完整说明这点，方法的签名并不能说明返回值会是什么，或者说方法改变了什么。这使得方法的部分影响很难看到，必须要深入到方法实现里面，才能够完整了解方法实际改变了什么。
+
+尤其是在多线程情况下，多线程竞争情况出现，使得状态更加难以追踪。实现不可变类无疑是防止外部的调用者、使用者有意无意改变实例状态的一种很好的手段，这样才能够使得程序的运行更加安全。
+
+上例中的代码怎么改进呢？
+```c#
+public class UserProfile {
+    private readonly User _user;
+    private readonly string _address;
+
+    public UserProfile(User user, string address) {
+        _user = user;
+        _address = address;
+    }
+
+    public UserProfile UpdateUser(int userId, string name) {
+        var newUser = new User(userId, name);
+        return new UserProfile(newUser, _address);
+    }
+}
+
 
 ## Exceptions 异常处理
 
