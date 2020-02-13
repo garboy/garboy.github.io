@@ -126,7 +126,94 @@ public class UserProfile {
         return new UserProfile(newUser, _address);
     }
 }
+```
+首先UserProfile构造函数接收一个User类，然后UpdateUser方法会新建一个User和UserProfile实例，并返回给这个新UserProfile实例。同时User与Address为只读属性，只能通过构造函数，初始化的时候赋值。
+这样有几个好处：
+1. 我们通过方法签名，就能知道这些方法改变了什么，返回什么，也就是把副作用通过方法签名体现出来了。这样，代码的可读性也增强了，因为我们不再需要进入到方法体，才能知道这个方法改变了什么，会带来什么副作用。
+1. 线程安全。没有竞争条件发生，所以多线程情况下，也安全。
 
+### 可变性与耦合
+
+再举一个反例，说明一下可变性是如何破坏代码的可读性以及可维护性的。
+```c#
+public class CustomerService {
+
+    private Address _address;
+    private Customer _customer;
+
+    public void Process(string customerName, string addressString) {
+        CreateAddress(addressString);
+        CreateCustomer(customerName);
+        SaveCustomer();
+    }
+
+    private void CreateAddress(string addressString) {
+        _address = new Address(addressString);
+    }
+
+    private void CreateCustomer(string name) {
+        _customer = new Customer(name, _address);
+    }
+
+    private void SaveCustomer() {
+        var repository = new Repository();
+        repository.Save(_customer);
+    }
+}
+```
+上面这个例子中，如果调换下Process()方法中调用那三个private方法的顺序，比如CreateCustomer()放到CreateAddress()前面，那就会失败。这其实就是一种时间耦合或者说叫temporal coupling。
+
+不仅如此，这三个private方法的签名，并不能完整的描述方法真正需要的输入以及返回值。它们都严重依赖内部的局部变量。下面我们看看如何修改一下这个方法，以符合函数式编程的要求。
+```c#
+public class CustomerService {
+
+    public void Process(string customerName, string addressString) {
+        Address address = CreateAddress(addressString);
+        Customer customer = CreateCustomer(customerName, address);
+        SaveCustomer(customer);
+    }
+
+    private void CreateAddress(string addressString) {
+        return new Address(addressString);
+    }
+
+    private void CreateCustomer(string name, Address address) {
+        return new Customer(name, address);
+    }
+
+    private void SaveCustomer(Customer customer) {
+        var repository = new Repository();
+        repository.Save(customer);
+    }
+}
+```
+其实改动也很简单，就是去掉类的局部变量，给方法添上必要返回值与输入参数，没有什么特别的。但修改之后，代码的可读性会增加许多，而且方法也没有隐藏的副作用了，每一个方法会带来什么改变，通过方法签名能够明确知道。
+
+### 不变类的局限性
+
+虽然保持类的不变性增强了代码的维护性和可读性，但它也有它的局限性。可以从之前的例子看出来，如果想维护比较高的不可变性，不能通过修改已有实例的属性，而是需要创建新的实例，这样会带来很多内存和CPU的消耗。也许在企业软件中，这不是大问题，但是在特定软件里面，性能和资源消耗，可能需要重点考虑。所以有时候我们需要取舍，并不是一定要消灭掉所有的可变类，那样代价也太大。我们的目标是降低可变类的数量，但是它永远不可能降低到零。
+
+在C#中除了手写之外，还有几个工具可以帮助我们实现不可变类。
+第一个是一个NuGet包，可以帮助我们写一些通用的不可变集合，比如
+```c#
+// 方法1
+ImmutableList<string> list = ImmutableList.Create<string>();
+ImmutableList<string> list2 = list.Add("New Item");
+
+//方法2
+ImmutableList<string>.Builder builder = ImmutableList.CreateBuilder<string>();
+builder.Add("Line 1");
+builder.Add("Line 2");
+builder.Add("Line 3");
+ImmutableList<string> immutableList = builder.ToImmutable();
+```
+可以想象到，list2其实是重新创建了一个List集合，这样会带来一些性能损失。更推荐另一种做法，通过builder先准备数据，然后一次性的生成这个不可变集合。
+
+### 处理副作用
+
+很明显，就算使用不可变类来编程，我们依然不能摆脱副作用。上一章节的例子中，我们创建了customer实例，并最终把它存储到数据库中，并且存储数据库这个动作，我们从方法签名上并看不出来，另外，如果对象存储到外部文件或者数据库中，这也是一个副作用。显然我们是不可能消灭掉副作用的，那我们怎么处理呢？
+
+这时候可以提到一个经常听过的名字, CQRS, Command-Query Seperate Principle，把命令与查询分开处理原则。也就是如果改变状态的那些动作，定义为Command，那些不会改变状态的动作，定义为Query。通常command返回为void，query返回非void的类型。
 
 ## Exceptions 异常处理
 
