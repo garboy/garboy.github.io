@@ -215,6 +215,8 @@ ImmutableList<string> immutableList = builder.ToImmutable();
 
 这时候可以提到一个经常听过的名字, CQRS, Command-Query Seperate Principle，把命令与查询分开处理原则。也就是如果改变状态的那些动作，定义为Command，那些不会改变状态的动作，定义为Query。通常command返回为void，query返回非void的类型。
 
+当然，没有绝对的，一个非常著名的改变了状态，并具有返回值的著名方法，就是 stack.pop()，移除并返回堆栈第一个元素。
+
 ## Exceptions 异常处理
 
 ## Avoiding Primitive Obssesion 停止对原生类型的痴迷
