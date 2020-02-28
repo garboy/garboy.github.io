@@ -217,7 +217,11 @@ ImmutableList<string> immutableList = builder.ToImmutable();
 
 当然，没有绝对的，一个非常著名的改变了状态，并具有返回值的著名方法，就是 stack.pop()，移除并返回堆栈第一个元素。
 
+//TODO: AuditManager.cs
+
 ## Exceptions 异常处理
+
+> Always prefer using return values over exceptions.
 
 ## Avoiding Primitive Obssesion 停止对原生类型的痴迷
 
