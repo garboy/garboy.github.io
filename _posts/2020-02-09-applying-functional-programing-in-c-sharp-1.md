@@ -195,7 +195,8 @@ public class CustomerService {
 
 在C#中除了手写之外，还有几个工具可以帮助我们实现不可变类。
 第一个是一个NuGet包，可以帮助我们写一些通用的不可变集合，比如
-```c#
+
+```csharp
 // 方法1
 ImmutableList<string> list = ImmutableList.Create<string>();
 ImmutableList<string> list2 = list.Add("New Item");
@@ -207,6 +208,7 @@ builder.Add("Line 2");
 builder.Add("Line 3");
 ImmutableList<string> immutableList = builder.ToImmutable();
 ```
+
 可以想象到，list2其实是重新创建了一个List集合，这样会带来一些性能损失。更推荐另一种做法，通过builder先准备数据，然后一次性的生成这个不可变集合。
 
 ### 处理副作用
