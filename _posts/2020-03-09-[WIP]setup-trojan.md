@@ -104,6 +104,20 @@ IMPORTANT NOTES:
 设置定时任务，定期更新证书。因为我们同时还启用了apache，用于启动一个静态网站，接收伪装的http请求。所以要用--pre-hook和post-hook用于刷新证书时，停止和重启httpd服务。
 `echo "0 0,12 * * * root python3 -c 'import random; import time; time.sleep(random.random() * 3600)' && /usr/local/bin/certbot-auto renew -q --pre-hook 'systemctl stop httpd' --post-hook 'systemctl start httpd'" | sudo tee -a /etc/crontab > /dev/null`
 
-###
+### Visit your domain
 
 前期准备完成后，尝试访问一下域名，如果能够打开一个页面，并且显示是用刚申请的SSL证书加密的，就可以。
+
+### Start Trojan
+
+`nohup ./trojan -c /usr/local/etc/trojan/config.json > server.log 2>&1 &` 之后运行`netstat -lnpt`  
+应该能看到80和443端口都被监听中。  
+
+```bash
+Active Internet connections (only servers)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      1497/sshd
+tcp        0      0 0.0.0.0:443             0.0.0.0:*               LISTEN      30617/./trojan
+tcp6       0      0 :::80                   :::*                    LISTEN      30758/httpd
+tcp6       0      0 :::22                   :::*                    LISTEN      1497/sshd
+```
