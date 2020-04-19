@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "Windows下批量重命名文件名为小写，以及更多"
 date:   2019-05-05 09:58:18 +0800
 categories: technical

@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "测试驱动开发规范"
 date:   2020-01-13 09:00:00 +0800
 categories: devops

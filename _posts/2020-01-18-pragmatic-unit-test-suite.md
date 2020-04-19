@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "Pragmatic Unit Test Suite"
 date:   2020-01-18 10:11:18 +0800
 categories: testing

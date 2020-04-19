@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "GitHub flow 介绍"
 date:   2019-12-10 16:38:18 +0800
 categories: git flows

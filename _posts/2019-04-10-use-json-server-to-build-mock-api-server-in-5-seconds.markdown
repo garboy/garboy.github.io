@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "Build a mock api server in seconds"
 date:   2019-04-11 12:58:18 +0800
 categories: technical

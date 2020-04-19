@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "砸扁，并提交一个干净的Git Commit历史"
 date:   2019-12-09 09:38:18 +0800
 categories: git flows

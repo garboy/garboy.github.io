@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "AWS EBS, EFS, S3对比"
 date:   2019-12-03 09:38:18 +0800
 categories: aws cert

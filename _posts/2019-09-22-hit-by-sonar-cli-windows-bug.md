@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "SonarQuebe-CLI Windows下的一个BUG"
 date:   2019-09-23 12:58:18 +0800
 categories: technical

@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "安装Redis Cli"
 date:   2019-06-04 09:58:18 +0800
 categories: technical

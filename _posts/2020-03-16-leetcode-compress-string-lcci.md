@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "LeetCode:面试题 01.06. 字符串压缩"
 date: 2020-03-16 15:01:18 +0800
 categories: algorithm

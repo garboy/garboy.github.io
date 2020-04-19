@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "Fundamentals Of Wirtten Proposal"
 date: 2020-04-12 09:01:18 +0800
 categories: written proposal

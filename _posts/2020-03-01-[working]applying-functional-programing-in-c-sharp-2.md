@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "C#函数式编程（二）"
 date:   2020-02-09 16:01:18 +0800
 categories: programming, csharp

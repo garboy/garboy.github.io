@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "数据库持续集成"
 date:   2019-12-23 16:38:18 +0800
 categories: devops

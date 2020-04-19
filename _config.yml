@@ -24,9 +24,23 @@ github_username:  chengwhynot
 
 # Build settings
 markdown: kramdown
-theme: jekyll-theme-cayman  
+theme: minima  
 plugins:
   - jekyll-feed
+
+# Defaults
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      author_profile: true
+      read_time: true
+      comments: # true
+      share: true
+      related: true
 
 # Exclude from processing.
 # The following items will not be processed, by default. Create a custom list

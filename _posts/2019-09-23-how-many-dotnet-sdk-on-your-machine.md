@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "你的机器上到底有多少个.NET Core SDK"
 date:   2019-09-23 12:58:18 +0800
 categories: technical

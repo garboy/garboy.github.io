@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "TCP/IP and Networking Fundamentals(TBD)"
 date:   2020-02-03 21:31:18 +0800
 categories: networking

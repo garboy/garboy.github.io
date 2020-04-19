@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "Git Flow 分支规范"
 date:   2019-12-06 09:38:18 +0800
 categories: git flows

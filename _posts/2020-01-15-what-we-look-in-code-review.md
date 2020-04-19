@@ -1,7 +1,6 @@
 ---
-layout:post
-title:  "代码评审"
-date:   2020-01-15 09:00:00 +0800
+title: "代码评审"
+date: 2020-01-15 09:00:00 +0800
 categories: devops
 ---
 

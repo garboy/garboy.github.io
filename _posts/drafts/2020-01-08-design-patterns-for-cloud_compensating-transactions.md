@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "云设计模式：补偿事务"
 date:   2020-01-08 11:00:00 +0800
 categories: design-patterns

@@ -1,5 +1,4 @@
 ---
-layout: post
 date:   2019-04-28 09:58:18 +0800
 original: https://www.nginx.com/blog/what-is-a-service-mesh/
 author: "Floyd Smith of NGINX, Inc. and Owen Garrett of NGINX, Inc"

@@ -1,5 +1,4 @@
 ---
-layout: post
 title: "LeetCode:两数相加"
 date: 2020-02-16 11:01:18 +0800
 categories: algorithm

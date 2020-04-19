@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "CentOS 8 安装Trojan"
 date:   2020-03-09 10:01:18 +0800
 categories: vps

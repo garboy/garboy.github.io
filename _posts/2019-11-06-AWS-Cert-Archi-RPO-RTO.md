@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "AWS Certified Solution Architect - RPO 与 RTO"
 date:   2019-11-06 09:38:18 +0800
 categories: aws cert

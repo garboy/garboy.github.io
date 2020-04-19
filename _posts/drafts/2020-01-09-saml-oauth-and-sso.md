@@ -2,8 +2,8 @@
 title:  "SAML, OAuth and SSO"
 date:   2020-01-09 11:00:00 +0800
 categories: tech
-layout: post
 ---
+
 ## SAML Overview
 
 Security Assertion Markup Language (SAML) is a standard for logging users into applications based on their sessions in another context. This single sign-on (SSO) login standard has significant advantages over logging in using a username/password:

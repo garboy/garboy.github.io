@@ -1,5 +1,4 @@
 ---
-layout: post
 title:  "Setting PATH for all users on MAC"
 date:   2019-04-07 10:58:18 +0800
 categories: jekyll update
