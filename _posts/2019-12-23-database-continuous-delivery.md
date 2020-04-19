@@ -6,22 +6,26 @@ categories: devops
 
 ## Basic Principles
 
-**#1 Keep Your Database in a Source Control System**  
+### 1 Keep Your Database in a Source Control System
+
 including table schema and reference data, e.x States, Countries  
 how to distingluish master data and reference data?  
 can your application change that data?  
 if yes, it's master data.  
 else, it's reference data.  
 
-**#2 Incorporate the DB into a CI Process**  
+### 2 Incorporate the DB into a CI Process
+
 not only apply DDL, DML SQLs, but also run auto tests on each change.  
 
-**#3 Do NOT Use Shared DB among developers**
+### 3 Do NOT Use Shared DB among developers
+
 1. It will allow developer change DB manually, instead of using scripts.
 2. It's hard to track db change history.  
 3. Hard to deal with merge conflicts.  
 
-**#4 Refactor Your Database Frequently**  
+### 4 Refactor Your Database Frequently
+
 This means when you refactor your domain model, let's say from 'User' to 'Customer', change that table as well.  
 
 ## Two Approaches

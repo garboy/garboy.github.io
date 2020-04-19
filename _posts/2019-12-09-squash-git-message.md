@@ -92,15 +92,15 @@ squash dfc0295 b.py Modification 2
 # This is a combination of 3 commits.
 # The first commit's message is:
 Added b.py
- 
+  
 # This is the 2nd commit message:
- 
+  
 b.py Modification 1
- 
+  
 # This is the 3rd commit message:
- 
+  
 b.py Modification 2
- 
+  
 # Please enter the commit message for your changes. Lines starting
 # with '#' will be ignored, and an empty message aborts the commit.
 #

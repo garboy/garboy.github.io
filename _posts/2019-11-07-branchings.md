@@ -4,8 +4,6 @@ date:   2019-11-07 09:38:18 +0800
 categories: git flows
 ---
 
-# Git flow, GitHub flow and GitLab flow
-
 ## Considerations
 
 1. release model. Release Train or Deploy fast, Deploy often.
