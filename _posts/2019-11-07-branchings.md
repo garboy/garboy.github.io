@@ -63,7 +63,7 @@ It can become complex as Git Flow when it needs to maintain multiple version in 
 
 ### GitHub flow
 
-![GitHub Flow](https://user-gold-cdn.xitu.io/2018/12/3/167738fe00a73a92?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
+![GitHub Flow](http://www.ruanyifeng.com/blogimg/asset/2015/bg2015122305.png)
 
 . Anything in the master branch is deployable
 . To work on something new, create a descriptively named branch off of master (ie: new-oauth2-scopes)
