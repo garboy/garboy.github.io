@@ -103,3 +103,4 @@ not suitable for those fixed window and release train model. Such as iOS apps, y
 . [GitHub Flow](https://guides.github.com/introduction/flow/)  
 . [GitLab Flow](https://about.gitlab.com/blog/2014/09/29/gitlab-flow/)  
 . [terms in gitlab flow](https://stackoverflow.com/questions/39917843/what-is-the-difference-between-github-flow-and-gitlab-flow/47016500#47016500)
+. [Git 工作流程](http://www.ruanyifeng.com/blog/2015/12/git-workflow.html)
