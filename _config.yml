@@ -16,9 +16,9 @@
 title: Cheng
 email: cheng@chengwhynot.me
 description: >- # this means to ignore newlines until "baseurl:"
-  This is a personal blog for Cheng Zhang.
+  Personal blog for Cheng Zhang.
 baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
+url: "http://www.chengwhynot.me" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: zhangcheng81
 github_username:  chengwhynot
 
