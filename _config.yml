@@ -24,6 +24,7 @@ github_username:  chengwhynot
 
 # Build settings
 markdown: kramdown
+permalink: /articles/:title
 theme: minima  
 plugins:
   - jekyll-feed
