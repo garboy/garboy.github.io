@@ -55,4 +55,5 @@ There is no need to create test cases for every condition. Instead of that focus
 . Execute test cases continuously and frequently.
 
 ## Reference
+
 . [Stubbing and Mocking with Mockito and JUnit](https://semaphoreci.com/community/tutorials/stubbing-and-mocking-with-mockito-2-and-junit), Kostis Kapelonis
